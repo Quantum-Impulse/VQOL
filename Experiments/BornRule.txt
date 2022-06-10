@@ -1,0 +1,15 @@
+# Born Rule
+num_seconds  = 1e-3  # 1 millisecond of experiment time
+offline_mode = False # change to True to run in offline mode
+
+Laser, x=1, y=1, orientation=0
+Polarizer, x=2, y=1, orientation=0, angle=45, phase=0
+NeutralDensityFilter, x=3, y=1, orientation=0, optical_density=10
+Detector, x=5, y=1, orientation=180, dark_count_rate=1
+
+Laser, x=1, y=3, orientation=0, mode=H
+HalfWavePlate, x=2, y=3, orientation=0, angle=22.5
+NeutralDensityFilter, x=3, y=3, orientation=0, optical_density=10
+PolarizingBeamSplitter, x=5, y=3, orientation=0, basis=HV
+Detector, x=6, y=3, orientation=180, dark_count_rate=1
+Detector, x=5, y=4, orientation=90, dark_count_rate=1

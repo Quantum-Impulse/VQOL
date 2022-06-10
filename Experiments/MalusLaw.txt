@@ -1,0 +1,13 @@
+# Malus Law
+num_seconds  = 1e-3  # 1 millisecond of experiment time
+offline_mode = False # change to True to run in offline mode
+
+Laser, x=1, y=1, orientation=0
+PowerMeter, x=5, y=1
+Polarizer, x=3, y=1, orientation=0, angle=45
+
+Laser, x=1, y=4, orientation=0
+HalfWavePlate, x=3, y=4, orientation=0, angle=22.5
+PolarizingBeamSplitter, x=5, y=4, orientation=0
+PowerMeter, x=7, y=4
+PowerMeter, x=5, y=6

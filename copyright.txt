@@ -1,0 +1,29 @@
+# -----------COPYRIGHT NOTICE STARTS WITH THIS LINE------------
+# Copyright (c) 2019, Applied Research Laboratories, The University of Texas 
+# at Austin. All rights reserved.  By using this software, you, the USER, 
+# indicate you have read, understood, and will comply with the following:
+# 
+# Nonexclusive permission to use, copy and/or modify this software for 
+# internal, noncommercial, research purposes is granted. Any distribution, 
+# including commercial sale, of this software, copies, associated documentation # and/or modifications or derivations is strictly prohibited without the prior 
+# written consent of the Applied Research Laboratories, The University of Texas # at Austin (ARL:UT).  Appropriate copyright notice shall be placed on software
+# copies, and a full copy of this license in associated documentation.  No 
+# right is granted to use in advertising, publicity or otherwise any 
+# trademark of ARL:UT.  This software is provided "as is," and ARL:UT makes 
+# no representations or warranties, express or implied, including those of 
+# merchantability or fitness for a particular purpose, or that use of the 
+# software, modifications, or associated documentation will not infringe on 
+# any patents, copyrights, trademarks or other rights.  ARL:UT shall not be 
+# held liable for any liability nor for any direct, indirect or consequential 
+# damages with respect to any claim by USER or any third party on account of 
+# or arising from this Agreement.  This license is subject to all applicable 
+# export restrictions and the USER must comply with all export and import laws,
+# restrictions, and regulations relating to this software and its use.  
+# Submit software questions to:
+# 
+# Brian R. La Cour
+# Applied Research Laboratories, The University of Texas at Austin
+# P.O. Box 8029
+# Austin, Texas 78713-8029
+# blacour@arlut.utexas.edu
+# -----------COPYRIGHT NOTICE ENDS WITH THIS LINE------------

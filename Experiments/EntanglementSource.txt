@@ -1,0 +1,13 @@
+# Entanglement Source
+num_seconds  = 1e-3  # 1 millisecond of experiment time
+offline_mode = False # change to True to run in offline mode
+
+EntanglementSource, x=4, y=2, orientation=90, strength=1, phase=0, entanglement_type=1, directions=LR
+
+PolarizingBeamSplitter, x=6, y=2, orientation=0
+Detector, x=8, y=2, orientation=180, dark_count_rate=1
+Detector, x=6, y=4, orientation=90, dark_count_rate=1
+
+PolarizingBeamSplitter, x=2, y=2, orientation=0, basis=HV
+Detector, x=0, y=2, orientation=0, dark_count_rate=1
+Detector, x=2, y=0, orientation=270, dark_count_rate=1

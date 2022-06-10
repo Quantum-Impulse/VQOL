@@ -1,0 +1,265 @@
+---------- USER GUIDE TO THE VIRTUAL QUANTUM OPTICS LABORATORY ----------
+
+-------------------------------------------------------------------------
+
+TIME: To set the length of the experiment, use the following form:
+
+num_seconds = 0.001
+
+If you do not set the time, there will be no time limit.  Note that each time sample is 1 microsecond, so num_seconds = 0.001 corresponds to 1000 samples.
+
+-------------------------------------------------------------------------
+
+RESULTS: To set the file in which to store your results, use the following form:
+
+file_name = some_filename.csv
+
+If you do not set file_name, the results will be saved into the file "result.csv".  Results are stored in the "Results" folder as a spreadsheet of times (rows) and detection events (columns) for each detector.
+
+-------------------------------------------------------------------------
+
+COMPONENTS: To add components, follow the format for each component below to initialize the component in a plain text file in the Experiments folder.  If you are using default parameters you can leave them off when defining your component.  If you are not using keyword initalization, the first n parameters that you enter (separated by commas) will fill in the first n parameters for that component.  If you do use keyword initalization, the parameters you do not set will assume their default values.
+
+-------------------------------------------------------------------------
+
+POSITION: All components have a position on the optical table (keywords "x" and "y").  The parameters x and y specify the Cartesian coordinates of a component, with the top left corner at the origin (0,0).  x and y can be any integer between 0 and 17 (inclusive).  No two components can be located at the same position.
+
+-------------------------------------------------------------------------
+
+ORIENTATION: Most components also have an orientation (keyword "orientation"), which is the angle (in degrees) counter-clockwise from the east.  Thus, an orientation of 0 points to the right, and an orientation of 90 points up.  The only valid orientation are integer multiples of 90.  Thus, 0, 90, 180, 270, -90, etc. are all valid orientation.
+
+-------------------------------------------------------------------------
+
+COMMENTS: Any text following a # (and to the end of the line) will be ignored.  This follows the standard Python convention for comments.
+
+-------------------------------------------------------------------------
+
+Laser: source of coherent light
+
+Examples:
+  # laser at position (1,11), pointing to the right, with horizontal polarization
+  Laser, 1, 11, 0, H
+  Laser, x=1, y=11, orientation=0, mode=H  # keyword initialization
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  mode:   one of H, V, D, A, L, R (defaults to H)
+
+Description: A laser produces a continuous wave of light with a particular wavelength and polarization.  The six possible polarization modes are H (horizontal -), V (vertical |), D (diagonal /), A (anti-diagonal \), R (right circular ccw), L (left circular cw).  Other polarization may be created using polarizers and waveplates.
+
+-------------------------------------------------------------------------
+
+LED (Light-Emitting Diode): source of incoherent light
+
+Examples:
+  # LED at position (1,11), pointing to the right, with a power of 500 mW
+  LED, 1, 11, 0
+  LED, x=1, y=11, orientation=0, power=500e-3  # keyword initialization
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  power:  defaults to 500e-3 (500 mW)
+
+Description: An LED produces light with a constant average power (measured in Watts) but fluctuating amplitude and polarization.
+
+-------------------------------------------------------------------------
+
+EntanglementSource (Spontaneous Parametric Down Converter): source of entangled photons
+
+Examples:
+  EntanglementSource, x=8, y=10, orientation=90, strength=1, phase=0, entanglement_type=1
+  EntanglementSource, x=8, y=10, orientation=90, strength=1, phase=180, entanglement_type=2
+
+Optional Parameters:
+  orientation:   integer multiples of 90 deg, defaults to 0
+  r:        squeezing parameter, defaults to 1
+  phase:   phase, defaults to 0 for type 1 and 180 for type 2
+  entanglement_type: one of 1 or 2 (defaults to 1)
+
+Description: The Spontaneous Parametric Down Converter (SPDC) source is used to produce entangled photon pairs.  The direction of travel of the two photons will be +90 and -90 degrees from the orientation.  The parameters r and phase are squeezing parameters, while entanglement_type is the type of SPDC.  Increasing the value of r produces more entangled photons and corresponds to increasing the pump strength.  The parameter phase is determined by the geometry of the crystal.  A Type I SPDC (entanglement_type=1) produces photons with the same polarization [quantum state (|HH> + exp(i*phase)|VV>)/sqrt(2)].  A Type II SPDC (entanglement_type=2) produces photons with opposite polarizations [quantum state (|HV> + exp(i*phase)|VH>)/sqrt(2)].
+
+-------------------------------------------------------------------------
+
+NeutralDensityFilter (Neutral Density Filter): attenuates light w/o changing polarization
+
+Examples:
+  NeutralDensityFilter, x=5, y=11, orientation=0, d=10
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  d:      optical density, defaults to 10
+
+Description: The parameter d is the optical density, defined such that, if the input intensity is I, then the output intensity is I*10^(-d).
+
+-------------------------------------------------------------------------
+
+Polarizer: polarizing filter
+
+Examples:
+  Polarizer, x=3, y=11, orientation=0, angle=0           # H polarizer
+  Polarizer, x=3, y=11, orientation=0, angle=90          # V polarizer
+  Polarizer, x=3, y=11, orientation=0, angle=45, phase=0   # D polarizer
+  Polarizer, x=3, y=11, orientation=0, angle=45, phase=180 # A polarizer
+  Polarizer, x=3, y=11, orientation=0, angle=45, phase=+90 # R polarizer
+  Polarizer, x=3, y=11, orientation=0, angle=45, phase=-90 # L polarizer
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  angle:  defaults to 0
+  phase:    defaults to 0
+
+Description: A polarizing filter passes light of a certain polarization (specified by angle and phase) and extinguishes light of the orthogonal polarization.
+
+-------------------------------------------------------------------------
+
+PhaseDelay: retards light to give an overall time (or phase) delay
+
+Example:
+  PhaseDelay, x=6, y=10, orientation=0, phase=180  # delay by half a cycle
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  phase:    phase delay (deg), defaults to 0
+
+-------------------------------------------------------------------------
+
+Depolarizer: depolarizes light
+
+Example:
+  Depolarizer, x=6, y=10, orientation=0
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+
+-------------------------------------------------------------------------
+
+PhaseRetarder:
+
+Example:
+  PhaseRetarder, x=6, y=10, orientation=0, phase=0
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  phase:    phase retard (deg), defaults to 0
+
+-------------------------------------------------------------------------
+
+Rotator:
+
+Example:
+  Rotator, x=6, y=10, orientation=0, angle=0
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  angle:    angle of rotation(deg), defaults to 0
+
+-------------------------------------------------------------------------
+HalfWavePlate: half-wave waveplate
+
+Example:
+  HalfWavePlate, x=9, y=14, orientation=0, angle=22.5 # converts H to D polarization
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  angle:  fast axis (deg), defaults to 0
+
+Description: The parameter angle is the orientation of the fast axis of the wave plate relative to zero (horizontal).  For angle = angle, effects the unitary transformation
+
+  [ cos(2*angle)   sin(2*angle) ;
+    sin(2*angle)  -cos(2*angle) ]
+
+-------------------------------------------------------------------------
+
+QuarterWavePlate: quarter-wave waveplate
+
+Example:
+  QuarterWavePlate, x=9, y=14, orientation=0, angle=90.0
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  angle:  fast axis (deg), defaults to 0
+
+Description: The parameter angle is the orientation of the fast axis of the wave plate relative to zero (horizontal).  For angle = angle, effects the unitary transformation
+
+  [ cos(angle)^2 + i*sin(angle)^2  (1 - i)/2 * sin(2*angle) ;
+    (1 - i)/2 * sin(2*angle)   sin(angle)^2 + i*cos(angle)^2 ]
+
+-------------------------------------------------------------------------
+
+Mirror: double-sided, fully reflecting mirror
+
+Examples:
+  Mirror, x=4, y=10, orientation=45    # reflects right to up and down to left
+  Mirror, x=10, y=14, orientation=135  # reflects down to right and up to left
+
+-------------------------------------------------------------------------
+
+PolarizingBeamSplitter: polarized beamsplitter
+
+Examples:
+  PolarizingBeamSplitter, x=12, y=10, orientation=0, basis = HV  # transmits H right, reflects V down (\)
+  PolarizingBeamSplitter, x=12, y=10, orientation=90, basis = DA  # transmits D right, reflects A up (/)
+
+Optional Parameters:
+  orientation: integer multiples of 90 deg, defaults to 0
+  basis: HV, DA, or RL. Defaults to HV. A polarizing beamsplitter in the DA basis transmits D and reflects A.
+         A polarizing beamsplitter with RL basis transmits R and reflects L.
+
+-------------------------------------------------------------------------
+
+BeamSplitter: beamsplitter
+
+Examples:
+  BeamSplitter, x=12, y=10, orientation=0, rSquared=0.5  # 50/50 beamsplitter (\)
+  BeamSplitter, x=12, y=10, orientation=90 rSquared=0.1  # 10% reflected (/)
+
+Optional Parameters:
+  orientation:   integer multiples of 90 deg, defaults to 0
+  rSquared: reflectivity (fraction of power reflected), defaults to 0.5
+
+Description: The incoming beam is split into two beams.  The transmitted beam is multiplied by -sqrt(1-rSquared), while the reflected beam is multipled by -sqrt(rSquared).  Polarization is unaffected.
+
+-------------------------------------------------------------------------
+
+BeamBlocker: blocks a laser
+
+Example:
+  BeamBlocker, x=6, y=10
+
+-------------------------------------------------------------------------
+
+PowerMeter: light power meter
+
+Example:
+  PowerMeter, x=9, y=11
+
+Description: Displays the incident power, measured in Watts (W).
+
+-------------------------------------------------------------------------
+
+Detector: single-photon detector
+
+Example:
+  Detector, x=7, y=11, orientation=180, probability_dark_count=0.1
+
+Optional Parameters:
+  orientation:        integer multiples of 90 deg, defaults to 0
+  probability_dark_count: probability of a dark count (per time bin), defaults to 1e-3
+
+Description: A detection is registered whenever the amplitude of either the horizontal or vertical component of incident light falls above a threshold, gamma.  This threshold is related to the probability of dark counts (probability_dark_count) by
+
+  gamma = sqrt( -1/2*log(1 - sqrt(1-probability_dark_count) ) )
+
+Thus, as gamma increases, probability_dark_count decreases.  Detectors are assigned a number in the order that they are initialized, with 1 being the first detector you specify.
+
+-------------------------------------------------------------------------
+
+Coincident Counts: 
+
+Example:
+  # track coincidences between detectors 3 and 4
+  CoincidenceCounter, indexDetOne=3, indexDetTwo=4
+
+Description: This component is non-visual and is used to track the number of coincidence counts between pairs of detectors.  The indices indexDetOne and indexDetTwo are the numbers of the detectors you want to track.
+
+-------------------------------------------------------------------------

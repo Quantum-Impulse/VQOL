@@ -1,0 +1,12 @@
+num_seconds = 1e-3# 1 millisecond of experiment time
+offline_mode = false# change to True to run in offline mode
+Laser, x=7, y=7, orientation=90, mode=H, power=0.004
+BeamSplitter, x=4, y=3, orientation=180, reflectivity=0.5
+Mirror, x=7, y=3, orientation=135
+Mirror, x=4, y=5, orientation=135
+BeamSplitter, x=7, y=5, orientation=180, reflectivity=0.5
+Detector, x=3, y=3, orientation=0, dark_count_rate=1
+Detector, x=4, y=2, orientation=270, dark_count_rate=1
+NeutralDensityFilter, x=7, y=6, orientation=270, optical_density=10
+BeamBlocker, x=7, y=4
+Mirror, x=9, y=4, orientation=135
